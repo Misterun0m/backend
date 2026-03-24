@@ -1,0 +1,13 @@
+# ============================================================
+#  .htaccess — backend/
+#  Elimina COOP/COEP que bloquean window.postMessage de Google
+# ============================================================
+
+<IfModule mod_headers.c>
+    # ✅ Sobrescribe cualquier COOP que Apache o PHP.ini envíen globalmente
+    Header always unset Cross-Origin-Opener-Policy
+    Header always unset Cross-Origin-Embedder-Policy
+
+    # ✅ Permite que Google Sign-In (popup) se comunique con la página
+    Header always set Cross-Origin-Opener-Policy "unsafe-none"
+</IfModule>
