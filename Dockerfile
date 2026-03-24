@@ -1,21 +1,12 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-# 🔥 LIMPIAR CONFIGURACIÓN MPM
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.conf
-
-RUN a2enmod mpm_prefork
-
-# Extensiones necesarias
+# Instalar extensiones necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Activar rewrite
-RUN a2enmod rewrite
+# Copiar archivos
+COPY . /app
 
-# Copiar archivos (ajusta si usas /backend)
-COPY . /var/www/html/
+WORKDIR /app
 
-# Permisos
-RUN chown -R www-data:www-data /var/www/html
-
-EXPOSE 80
+# Usar el puerto dinámico de Railway
+CMD php -S 0.0.0.0:$PORT
