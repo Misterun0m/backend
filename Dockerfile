@@ -1,10 +1,12 @@
 FROM php:8.2-apache
 
-# 🔥 SOLUCIÓN AL ERROR MPM
-RUN a2dismod mpm_event
+# 🔥 LIMPIAR CONFIGURACIÓN MPM
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.conf
+
 RUN a2enmod mpm_prefork
 
-# Extensiones PHP
+# Extensiones necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Activar rewrite
