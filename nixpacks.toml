@@ -1,5 +1,9 @@
+[phases.setup]
+nixPkgs = ["php84", "php84Extensions.pdo_mysql", "php84Extensions.mysqli", "php84Extensions.curl", "caddy"]
+ 
 [phases.build]
 cmds = []
-
+ 
 [start]
-cmd = "php -S 0.0.0.0:$PORT -t ."
+cmd = "php-fpm84 -D && caddy run --config /Caddyfile --adapter caddyfile"
+ 
