@@ -8,5 +8,4 @@ COPY . /app
 
 WORKDIR /app
 
-# Usar el puerto dinámico de Railway
-CMD php -S 0.0.0.0:$PORT
+CMD sh -c "php -S 0.0.0.0:$PORT -t /app/backend"
