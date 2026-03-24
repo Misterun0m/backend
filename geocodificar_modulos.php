@@ -346,7 +346,7 @@ try {
     <p>Total procesados: <b><?= count($modulos) ?></b></p>
     <?php if ($ok > 0): ?>
     <p>✅ <b>¡Listo!</b> Ahora prueba el mapa en:
-       <a href="http://localhost:4200/mapa-tramites?tram_id=1&tram_tip=INE" target="_blank">
+       <a href="https://jovenes-tramites.vercel.app/mapa-tramites?tram_id=1&tram_tip=INE" target="_blank">
        localhost:4200/mapa-tramites?tram_id=1</a>
     </p>
     <?php endif; ?>
