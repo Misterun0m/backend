@@ -1,11 +1,16 @@
 <?php
+// ------------------------------
+// Archivo: bd.php
+// Descripción: Conexión a la base de datos MySQL usando mysqli.
+// ------------------------------
 
-$host = "localhost";
+$host = "centerbeam.proxy.rlwy.net";
+$port = 16749;
 $user = "root";
-$pass = "";
-$db   = "jovenestramites";
+$pass = "ycrtevFnWGNbedBPSMIRQbEHWkqVXPNl";
+$db   = "railway";
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db, $port);
 
 if ($conn->connect_error) {
     http_response_code(500);
