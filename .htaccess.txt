@@ -10,4 +10,14 @@
 
     # ✅ Permite que Google Sign-In (popup) se comunique con la página
     Header always set Cross-Origin-Opener-Policy "unsafe-none"
+
+    # ✅ CORS
+    Header always set Access-Control-Allow-Origin "https://jovenes-tramites.vercel.app"
+    Header always set Access-Control-Allow-Methods "POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
 </IfModule>
+
+# ✅ Responde OK a las solicitudes preflight
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* - [R=200,L]
