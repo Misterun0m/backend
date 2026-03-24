@@ -1,12 +1,16 @@
 FROM php:8.2-apache
 
-# Instalar extensiones necesarias
+# 🔥 SOLUCIÓN AL ERROR MPM
+RUN a2dismod mpm_event
+RUN a2enmod mpm_prefork
+
+# Extensiones PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Activar mod_rewrite (opcional pero recomendado)
+# Activar rewrite
 RUN a2enmod rewrite
 
-# Copiar archivos al servidor
+# Copiar archivos (ajusta si usas /backend)
 COPY . /var/www/html/
 
 # Permisos
