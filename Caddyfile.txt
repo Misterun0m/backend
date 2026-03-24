@@ -1,0 +1,21 @@
+{
+    admin off
+}
+
+:8080 {
+    root * /app
+    php_fastcgi 127.0.0.1:9000
+    file_server
+
+    header {
+        Access-Control-Allow-Origin "https://jovenes-tramites.vercel.app"
+        Access-Control-Allow-Methods "POST, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+        Access-Control-Allow-Credentials "true"
+        Cross-Origin-Opener-Policy "unsafe-none"
+        Cross-Origin-Embedder-Policy "unsafe-none"
+    }
+
+    @options method OPTIONS
+    respond @options 200
+}
