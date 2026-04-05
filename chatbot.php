@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+
 header("Content-Type: application/json; charset=utf-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -15,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-define('GROQ_API_KEY', getenv('GROQ_API_KEY') ?: '');
+// ↓↓↓ PON TU API KEY DE GROQ AQUÍ ↓↓↓
+define('GROQ_API_KEY', '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');
+// ↑↑↑ SOLO CAMBIA ESE VALOR ↑↑↑
 
 $raw  = file_get_contents("php://input");
 $data = json_decode($raw, true);
@@ -29,13 +30,14 @@ if (!$data || empty($data['messages'])) {
 $system   = $data['system'] ?? '';
 $messages = [];
 
+// Groq usa el mismo formato que OpenAI — system prompt separado
 if ($system) {
     $messages[] = ["role" => "system", "content" => $system];
 }
 
 foreach ($data['messages'] as $msg) {
     $messages[] = [
-        "role"    => $msg['role'],
+        "role"    => $msg['role'], // 'user' o 'assistant' — Groq los acepta igual
         "content" => $msg['content']
     ];
 }
