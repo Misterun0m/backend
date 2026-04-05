@@ -1,9 +1,7 @@
 <?php
-// ─── SUPRIMIR WARNINGS que rompen los headers ────────────────────────────────
 error_reporting(0);
 ini_set('display_errors', 0);
 
-// ─── CORS — debe ir ANTES de cualquier otra cosa ─────────────────────────────
 header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -11,8 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// ─── CONEXIÓN DIRECTA (sin require para evitar output accidental) ─────────────
-$conn = new mysqli("localhost", "root", "", "jovenestramites");
+$host = getenv('MYSQLHOST')     ?: 'localhost';
+$user = getenv('MYSQLUSER')     ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQLDATABASE') ?: 'jovenestramites';
+$port = (int)(getenv('MYSQLPORT') ?: 3306);
+
+$conn = new mysqli($host, $user, $pass, $db, $port);
 $conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {
@@ -21,7 +24,6 @@ if ($conn->connect_error) {
     exit();
 }
 
-// ─── VALIDAR user_id ─────────────────────────────────────────────────────────
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
 if ($user_id <= 0) {
@@ -30,7 +32,6 @@ if ($user_id <= 0) {
     exit();
 }
 
-// ─── CONSULTA ────────────────────────────────────────────────────────────────
 $sql = "
     SELECT
         ut.user_idtramite,
@@ -69,7 +70,6 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
-// ─── RESPUESTA ────────────────────────────────────────────────────────────────
 echo json_encode([
     "success"  => true,
     "user_id"  => $user_id,
