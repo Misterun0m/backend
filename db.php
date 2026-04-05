@@ -1,8 +1,8 @@
 <?php
-$host = getenv('MYSQLHOST')     ?: 'localhost';
-$user = getenv('MYSQLUSER')     ?: 'root';
-$pass = getenv('MYSQLPASSWORD') ?: '';
-$db   = getenv('MYSQLDATABASE') ?: 'jovenestramites';
+$host = getenv('MYSQLHOST')     ?: 'y2c6vd.h.filess.io';
+$user = getenv('MYSQLUSER')     ?: 'jovenestramites_atomgrass';
+$pass = getenv('MYSQLPASSWORD') ?: 'b0a4ff2d3a099211c340197186ba2f9472fa901d';
+$db   = getenv('MYSQLDATABASE') ?: 'jovenestramites_atomgrass';
 $port = (int)(getenv('MYSQLPORT') ?: 3306);
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
