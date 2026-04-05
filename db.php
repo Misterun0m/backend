@@ -1,14 +1,9 @@
 <?php
-// ------------------------------
-// Archivo: bd.php
-// Descripción: Conexión a la base de datos MySQL usando mysqli.
-// ------------------------------
-
-$host = "centerbeam.proxy.rlwy.net";
-$port = 16749;
-$user = "root";
-$pass = "ycrtevFnWGNbedBPSMIRQbEHWkqVXPNl";
-$db   = "railway";
+$host = getenv('MYSQLHOST')     ?: 'localhost';
+$user = getenv('MYSQLUSER')     ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQLDATABASE') ?: 'jovenestramites';
+$port = (int)(getenv('MYSQLPORT') ?: 3306);
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
 
