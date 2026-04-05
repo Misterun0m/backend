@@ -2,10 +2,14 @@ FROM php:8.4-fpm-alpine
 
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-RUN apk add --no-cache caddy
+RUN apk add --no-cache caddy curl
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . /app
 WORKDIR /app
+
+RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 8080
 
