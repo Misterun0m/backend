@@ -4,9 +4,6 @@ error_reporting(0);
 ini_set('display_errors', 0);
 
 // ─── CORS — debe ir ANTES de cualquier otra cosa ─────────────────────────────
-header("Access-Control-Allow-Origin: http://localhost:4200");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
