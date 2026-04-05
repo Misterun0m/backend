@@ -1,11 +1,12 @@
-FROM php:8.2-cli
+FROM php:8.4-fpm-alpine
 
-# Instalar extensiones necesarias
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Copiar archivos
+RUN apk add --no-cache caddy
+
 COPY . /app
-
 WORKDIR /app
 
-CMD sh -c "php -S 0.0.0.0:$PORT -t /app/backend"
+EXPOSE 8080
+
+CMD ["sh", "-c", "php-fpm -D && caddy run --config /app/Caddyfile --adapter caddyfile"]
