@@ -110,5 +110,11 @@ try {
         "error"   => "Error en la base de datos",
         "detalle" => $e->getMessage()
     ]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        "error"   => "Error general",
+        "detalle" => $e->getMessage()
+    ]);
 }
 ?>
