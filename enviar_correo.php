@@ -27,15 +27,23 @@ $codigo        = htmlspecialchars($data["codigo"]);
 $nombre        = isset($data["nombre"]) ? htmlspecialchars($data["nombre"]) : "Usuario";
 
 // Gmail API
+$credentialsPath = file_exists('/etc/secrets/credentials.json')
+    ? '/etc/secrets/credentials.json'
+    : __DIR__ . '/credentials.json';
+
+$tokenPath = file_exists('/etc/secrets/token.json')
+    ? '/etc/secrets/token.json'
+    : __DIR__ . '/token.json';
+
 $client = new Google_Client();
-$client->setAuthConfig('credentials.json');
+$client->setAuthConfig($credentialsPath);
 $client->addScope(Google_Service_Gmail::GMAIL_SEND);
-$accessToken = json_decode(file_get_contents("token.json"), true);
+$accessToken = json_decode(file_get_contents($tokenPath), true);
 $client->setAccessToken($accessToken);
 
 if ($client->isAccessTokenExpired()) {
     $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
-    file_put_contents("token.json", json_encode($client->getAccessToken()));
+    file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 }
 
 $service = new Google_Service_Gmail($client);
