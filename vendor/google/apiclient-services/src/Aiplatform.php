@@ -3234,7 +3234,27 @@ class Aiplatform extends \Google\Service
         'locations',
         [
           'methods' => [
-            'augmentPrompt' => [
+            'askContexts' => [
+              'path' => 'v1/{+parent}:askContexts',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'asyncRetrieveContexts' => [
+              'path' => 'v1/{+parent}:asyncRetrieveContexts',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'augmentPrompt' => [
               'path' => 'v1/{+parent}:augmentPrompt',
               'httpMethod' => 'POST',
               'parameters' => [
@@ -5254,6 +5274,20 @@ class Aiplatform extends \Google\Service
               ],
             ],'embeddings' => [
               'path' => 'v1/{+endpoint}/embeddings',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'endpoint' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'deployedModelId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'responses' => [
+              'path' => 'v1/{+endpoint}/responses',
               'httpMethod' => 'POST',
               'parameters' => [
                 'endpoint' => [
@@ -11068,6 +11102,10 @@ class Aiplatform extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'memoryId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'delete' => [
               'path' => 'v1/{+name}',
@@ -11525,6 +11563,10 @@ class Aiplatform extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+                'sessionId' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],'delete' => [

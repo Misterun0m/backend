@@ -7,7 +7,6 @@ header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") exit;
 
-// Manejar errores
 set_error_handler(function($severity, $message) {
     echo json_encode(["status"=>"error","mensaje"=>"PHP error: $message"]);
     exit;
@@ -27,7 +26,6 @@ if (!$data || !isset($data["correo"])) {
 
 $correo = $data["correo"];
 
-// Verificar que el usuario exista
 $stmt = $pdo->prepare("SELECT user_id FROM usuario WHERE user_correo=?");
 $stmt->execute([$correo]);
 if (!$stmt->fetch()) {
@@ -35,16 +33,13 @@ if (!$stmt->fetch()) {
     exit;
 }
 
-// Generar código
 $codigo = rand(100000,999999);
 
-// Guardar código en DB
 $stmt = $pdo->prepare("UPDATE usuario SET codigo_recuperacion=? WHERE user_correo=?");
 $stmt->execute([$codigo,$correo]);
 
-// Llamar a enviar_correo.php
 $datosCorreo = ["correo"=>$correo,"codigo"=>$codigo];
-$ch = curl_init("http://localhost/backend/enviar_correo.php");
+$ch = curl_init("https://backend-gjz0.onrender.com/enviar_correo.php");
 curl_setopt_array($ch, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,

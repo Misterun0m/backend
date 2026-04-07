@@ -453,8 +453,8 @@ class Policy extends \Google\Collection
    */
   public $createWindowsDisabled;
   /**
-   * Controls which apps are allowed to act as credential providers on Android
-   * 14 and above. These apps store credentials, see this
+   * Optional. Controls which apps are allowed to act as credential providers on
+   * Android 14 and above. These apps store credentials, see this
    * (https://developer.android.com/training/sign-in/passkeys) and this (https:/
    * /developer.android.com/reference/androidx/credentials/CredentialManager)
    * for details. See also credentialProviderPolicy.
@@ -651,7 +651,9 @@ class Policy extends \Google\Collection
    */
   public $networkEscapeHatchEnabled;
   /**
-   * Whether resetting network settings is disabled.
+   * Whether resetting network settings is disabled. This applies only on fully
+   * managed devices. A NonComplianceDetail with MANAGEMENT_MODE is reported for
+   * other management modes.
    *
    * @var bool
    */
@@ -746,7 +748,8 @@ class Policy extends \Google\Collection
    */
   public $safeBootDisabled;
   /**
-   * Whether screen capture is disabled.
+   * Whether screen capture is disabled. This also blocks Circle to Search
+   * (https://support.google.com/android/answer/14508957).
    *
    * @var bool
    */
@@ -1311,8 +1314,8 @@ class Policy extends \Google\Collection
     return $this->createWindowsDisabled;
   }
   /**
-   * Controls which apps are allowed to act as credential providers on Android
-   * 14 and above. These apps store credentials, see this
+   * Optional. Controls which apps are allowed to act as credential providers on
+   * Android 14 and above. These apps store credentials, see this
    * (https://developer.android.com/training/sign-in/passkeys) and this (https:/
    * /developer.android.com/reference/androidx/credentials/CredentialManager)
    * for details. See also credentialProviderPolicy.
@@ -1904,7 +1907,9 @@ class Policy extends \Google\Collection
     return $this->networkEscapeHatchEnabled;
   }
   /**
-   * Whether resetting network settings is disabled.
+   * Whether resetting network settings is disabled. This applies only on fully
+   * managed devices. A NonComplianceDetail with MANAGEMENT_MODE is reported for
+   * other management modes.
    *
    * @param bool $networkResetDisabled
    */
@@ -2270,7 +2275,8 @@ class Policy extends \Google\Collection
     return $this->safeBootDisabled;
   }
   /**
-   * Whether screen capture is disabled.
+   * Whether screen capture is disabled. This also blocks Circle to Search
+   * (https://support.google.com/android/answer/14508957).
    *
    * @param bool $screenCaptureDisabled
    */

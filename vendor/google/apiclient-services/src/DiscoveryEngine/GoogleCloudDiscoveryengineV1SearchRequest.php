@@ -134,6 +134,14 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
   protected $naturalLanguageQueryUnderstandingSpecType = GoogleCloudDiscoveryengineV1SearchRequestNaturalLanguageQueryUnderstandingSpec::class;
   protected $naturalLanguageQueryUnderstandingSpecDataType = '';
   /**
+   * Optional. The maximum number of results to retrieve from each data store.
+   * If not specified, it will use the SearchRequest.DataStoreSpec.num_results
+   * if provided, otherwise there is no limit.
+   *
+   * @var int
+   */
+  public $numResultsPerDataStore;
+  /**
    * A 0-indexed integer that specifies the current offset (that is, starting
    * result location, amongst the Documents deemed by the API as relevant) in
    * search results. This field is only considered if page_token is unset. If
@@ -320,9 +328,7 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
    * Example #2 (coordination between /search API calls and /answer API calls):
    * Call /answer API with the session ID generated in the first call. Here, the
    * answer generation happens in the context of the search results from the
-   * first search call. Multi-turn Search feature is currently at private GA
-   * stage. Please use v1alpha or v1beta version instead before we launch this
-   * feature to public GA. Or ask for allowlisting through Google Support team.
+   * first search call.
    *
    * @var string
    */
@@ -600,6 +606,24 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
   public function getNaturalLanguageQueryUnderstandingSpec()
   {
     return $this->naturalLanguageQueryUnderstandingSpec;
+  }
+  /**
+   * Optional. The maximum number of results to retrieve from each data store.
+   * If not specified, it will use the SearchRequest.DataStoreSpec.num_results
+   * if provided, otherwise there is no limit.
+   *
+   * @param int $numResultsPerDataStore
+   */
+  public function setNumResultsPerDataStore($numResultsPerDataStore)
+  {
+    $this->numResultsPerDataStore = $numResultsPerDataStore;
+  }
+  /**
+   * @return int
+   */
+  public function getNumResultsPerDataStore()
+  {
+    return $this->numResultsPerDataStore;
   }
   /**
    * A 0-indexed integer that specifies the current offset (that is, starting
@@ -957,9 +981,7 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
    * Example #2 (coordination between /search API calls and /answer API calls):
    * Call /answer API with the session ID generated in the first call. Here, the
    * answer generation happens in the context of the search results from the
-   * first search call. Multi-turn Search feature is currently at private GA
-   * stage. Please use v1alpha or v1beta version instead before we launch this
-   * feature to public GA. Or ask for allowlisting through Google Support team.
+   * first search call.
    *
    * @param string $session
    */
