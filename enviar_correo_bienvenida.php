@@ -46,7 +46,7 @@ function enviarCorreoBienvenida(string $correoDestino, string $nombre): void {
     $html .= '</table></td></tr></table></body></html>';
 
     $payload = json_encode([
-        "sender"     => ["name" => "Inicio Ciudadano", "email" => "caballeoruben9@gmail.com"],
+        "sender" => ["name" => "Inicio Ciudadano", "email" => "iniciociudadano@gmail.com"],
         "to"         => [["email" => $correoDestino]],
         "subject"    => "Bienvenido a Inicio Ciudadano",
         "htmlContent" => $html
