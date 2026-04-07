@@ -25,7 +25,7 @@ if (!$apiKey) {
     throw new Exception("BREVO_API_KEY no configurada");
 }
 
- // tu base64 completo aquí
+$logoB64 = '/9j/4AAQSkZJRgABAQAAAQABAAD/...'; // tu base64 completo aquí
 
 $mensaje  = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Verificacion</title></head>';
 $mensaje .= '<body style="margin:0;padding:0;background-color:#8B2FC9;font-family:Arial,Helvetica,sans-serif;">';
