@@ -2,10 +2,10 @@
 
 function enviarCorreoBienvenida(string $correoDestino, string $nombre): void {
 
-    $apiKey = getenv('RESEND_API_KEY') ?: ($_ENV['RESEND_API_KEY'] ?? '');
+    $apiKey = getenv('BREVO_API_KEY') ?: ($_ENV['BREVO_API_KEY'] ?? '');
 
     if (!$apiKey) {
-        throw new Exception("RESEND_API_KEY no configurada");
+        throw new Exception("BREVO_API_KEY no configurada");
     }
 
     $nombre = htmlspecialchars($nombre);
@@ -16,7 +16,7 @@ function enviarCorreoBienvenida(string $correoDestino, string $nombre): void {
     $html .= '<tr><td align="center">';
     $html .= '<table width="480" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border-radius:18px;overflow:hidden;">';
     $html .= '<tr><td align="center" style="padding:36px 40px 10px 40px;">';
-    $html .= '<p style="margin:0;font-size:32px;">🏛️</p>';
+    $html .= '<p style="margin:0;font-size:32px;">&#127963;</p>';
     $html .= '</td></tr>';
     $html .= '<tr><td align="center" style="padding:8px 40px 0 40px;">';
     $html .= '<p style="margin:0;font-size:18px;font-weight:bold;color:#1a1a1a;">Inicio Ciudadano</p>';
@@ -46,31 +46,31 @@ function enviarCorreoBienvenida(string $correoDestino, string $nombre): void {
     $html .= '</table></td></tr></table></body></html>';
 
     $payload = json_encode([
-        "from"    => "Inicio Ciudadano <onboarding@resend.dev>",
-        "to"      => [$correoDestino],
-        "subject" => "Bienvenido a Inicio Ciudadano",
-        "html"    => $html
+        "sender"     => ["name" => "Inicio Ciudadano", "email" => "caballeoruben9@gmail.com"],
+        "to"         => [["email" => $correoDestino]],
+        "subject"    => "Bienvenido a Inicio Ciudadano",
+        "htmlContent" => $html
     ]);
 
     $ctx = stream_context_create([
         'http' => [
-            'method'  => 'POST',
-            'header'  => "Authorization: Bearer $apiKey\r\nContent-Type: application/json\r\n",
-            'content' => $payload,
+            'method'        => 'POST',
+            'header'        => "api-key: $apiKey\r\nContent-Type: application/json\r\nAccept: application/json\r\n",
+            'content'       => $payload,
             'ignore_errors' => true,
         ]
     ]);
 
-    $result = file_get_contents('https://api.resend.com/emails', false, $ctx);
+    $result = file_get_contents('https://api.brevo.com/v3/smtp/email', false, $ctx);
 
     if ($result === false) {
-        throw new Exception("Error al conectar con Resend");
+        throw new Exception("Error al conectar con Brevo");
     }
 
     $response = json_decode($result, true);
-    if (isset($response['statusCode']) && $response['statusCode'] >= 400) {
-        throw new Exception("Resend error: " . ($response['message'] ?? 'desconocido'));
+    if (isset($response['code'])) {
+        throw new Exception("Brevo error: " . ($response['message'] ?? 'desconocido'));
     }
 
-    error_log("Correo enviado via Resend a $correoDestino");
+    error_log("Correo enviado via Brevo a $correoDestino");
 }
