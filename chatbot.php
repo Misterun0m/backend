@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ↓↓↓ PON TU API KEY DE GROQ AQUÍ ↓↓↓
-define('GROQ_API_KEY', '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');
+define('GROQ_API_KEY', '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');
 // ↑↑↑ SOLO CAMBIA ESE VALOR ↑↑↑
 
 $raw  = file_get_contents("php://input");
